@@ -1,5 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { getAssetPath } from "@sage/utils/withBase";
 import Socials from "./Socials.astro";
 import config from "@sage/config";
 
@@ -8,6 +10,8 @@ type Props = {
 } & HTMLAttributes<"footer">;
 
 const { noMarginTop = false, class: className, ...attrs } = Astro.props;
+const locale = Astro.currentLocale ?? config.site.lang;
+const english = locale === "en";
 const currentYear = new Date().getFullYear();
 ---
 
@@ -19,6 +23,23 @@ const currentYear = new Date().getFullYear();
     <p>
       © {currentYear} {config.site.author}
     </p>
-    <Socials />
+    <nav
+      class="flex flex-wrap items-center justify-center gap-4"
+      aria-label={english ? "Footer" : "页脚导航"}
+    >
+      <Socials />
+      <a
+        class="hover:underline"
+        href={getRelativeLocaleUrl(locale, "contribute")}
+      >
+        {english ? "Contribute" : "投稿"}
+      </a>
+      <a class="hover:underline" href={getAssetPath("rss.xml")}>
+        RSS
+      </a>
+      <a class="hover:underline" href={getRelativeLocaleUrl(locale, "search")}>
+        {english ? "Search" : "搜索"}
+      </a>
+    </nav>
   </div>
 </footer>

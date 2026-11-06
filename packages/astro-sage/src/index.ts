@@ -165,7 +165,8 @@ const monoFont = (fallbacks: string[]) => ({
 const ROUTES: Array<[pattern: string, entry: string]> = [
   ["/", "routes/index.astro"],
   ["/404", "routes/404.astro"],
-  ["/about", "routes/about.astro"],
+  ["/about", "routes/content-page.astro"],
+  ["/contribute", "routes/content-page.astro"],
   ["/archives", "routes/archives/index.astro"],
   ["/og.png", "routes/og.png.ts"],
   ["/posts/[...page]", "routes/posts/[...page].astro"],

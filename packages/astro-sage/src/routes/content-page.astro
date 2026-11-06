@@ -1,0 +1,33 @@
+---
+import { getEntry, render } from "astro:content";
+import Layout from "@sage/layouts/Layout.astro";
+import Header from "@sage/components/Header.astro";
+import Main from "@sage/components/Main.astro";
+import Footer from "@sage/components/Footer.astro";
+import config from "@sage/config";
+
+const slug = Astro.url.pathname.split("/").filter(Boolean).at(-1);
+const suffix =
+  Astro.currentLocale === "en" && config.site.lang === "zh-cn" ? "-en" : "";
+const page = await getEntry("pages", slug + suffix);
+if (!page) throw new Error(`Missing content page: ${slug}${suffix}`);
+const { Content } = await render(page);
+---
+
+<Layout
+  title={`${page.data.title} | ${config.site.title}`}
+  description={page.data.description}
+  ogImage={page.data.ogImage}
+  canonicalURL={page.data.canonicalURL}
+>
+  <Header />
+
+  <Main pageTitle={page.data.title}>
+    <!-- The prose flow rules style direct children, so wrap the content itself. -->
+    <div class="app-prose mt-6">
+      <Content />
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>
