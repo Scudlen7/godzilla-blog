@@ -20,3 +20,7 @@ astro dev --background
 - [内容管理](https://docs.astro.build/en/guides/content-collections/)
 - [样式与 Tailwind](https://docs.astro.build/en/guides/styling/)
 - [多语言支持](https://docs.astro.build/en/guides/internationalization/)
+
+## 交付流程
+
+除非用户另有说明，修改验证通过后推送到 GitHub 的 main 分支；使用工作分支时先合并到 main。

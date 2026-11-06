@@ -193,8 +193,12 @@ export const a11yPlugin: HastPluginDefinition = {
 export const breakoutImagesPlugin: HastPluginDefinition = {
   name: "astro-sage-breakout-images",
   element: {
-    filter: ["p"],
+    filter: ["p", "img"],
     visit(node: Node, ctx: Node) {
+      if (node.tagName === "img") {
+        if (!node.properties?.loading) ctx.setProperty(node, "loading", "lazy");
+        return;
+      }
       const kids = (node.children ?? []).filter(
         (c: Node) => !(c.type === "text" && !String(c.value).trim())
       );

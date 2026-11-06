@@ -9,15 +9,12 @@ import Tag from "@sage/components/Tag.astro";
 import { getPostSlug, getPostUrl } from "@sage/utils/getPostPaths";
 import { getSortedPosts } from "@sage/utils/getSortedPosts";
 import { slugifyStr } from "@sage/utils/slugify";
-import EditPost from "./_components/EditPost.astro";
-import ShareLinks from "./_components/ShareLinks.astro";
 import AdjacentPostNav from "./_components/AdjacentPostNav.astro";
 import config from "@sage/config";
 import TableOfContents from "@sage/components/TableOfContents.astro";
 import SeriesNav from "@sage/components/SeriesNav.astro";
 import Comments from "@sage/components/Comments.astro";
 import Citation from "@sage/components/Citation.astro";
-import QuoteShare from "@sage/components/QuoteShare.astro";
 import { readingTime } from "@sage/utils/readingTime";
 import { getSeriesPosts } from "@sage/utils/getSeries";
 import { postFilter } from "@sage/utils/postFilter";
@@ -82,7 +79,6 @@ const {
   modDatetime,
   timezone,
   tags,
-  hideEditPost,
   series,
   toc,
   math,
@@ -174,17 +170,6 @@ const ogImage = ogImageUrl
       <article id="article" class="app-prose post-body">
         <Content />
       </article>
-      <QuoteShare
-        url={
-          new URL(
-            getPostUrl(post.id, post.filePath, locale),
-            Astro.site ?? Astro.url
-          ).href
-        }
-        title={title}
-        eyebrow={series ?? config.site.title}
-        footer={`${post.data.author} · ${new URL(config.site.url).hostname}`}
-      />
 
       {showToc && (
         <aside class="post-rail" aria-label="Table of contents">
@@ -210,11 +195,6 @@ const ogImage = ogImageUrl
         {seriesPosts.length > 1 && (
           <SeriesNav posts={seriesPosts} current={post.id} series={series!} />
         )}
-
-        <div class="flex flex-wrap items-center justify-between gap-4">
-          <ShareLinks title={title} />
-          <EditPost {hideEditPost} {post} />
-        </div>
 
         {config.comments.provider && post.data.comments && <Comments />}
 

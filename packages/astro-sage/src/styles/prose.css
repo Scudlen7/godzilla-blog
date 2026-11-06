@@ -287,7 +287,7 @@
       max-width: 100%;
       height: auto;
       margin-inline: auto;
-      border-radius: 0.375rem;
+      border-radius: 0.75rem;
     }
     & figure {
       margin-block: 2em;
@@ -458,10 +458,57 @@
   font-size: 1.08em;
 }
 
-/*
- * Hairline code blocks: transparent so they sit on whatever surface they're in
- * (page, callout). Unlayered to beat Expressive Code's generated styles.
- */
+.app-prose .expressive-code .frame {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--bg);
+}
+.app-prose .expressive-code .frame::before {
+  content: attr(data-language-label);
+  display: grid;
+  place-items: center;
+  min-height: 2.5rem;
+  padding-inline: 4rem;
+  border-radius: 0.75rem 0.75rem 0 0;
+  color: var(--fg-muted);
+  background:
+    radial-gradient(circle at 1rem 50%, #ff6058 0 4px, transparent 5px),
+    radial-gradient(circle at 1.85rem 50%, #ffbd2e 0 4px, transparent 5px),
+    radial-gradient(circle at 2.7rem 50%, #28c840 0 4px, transparent 5px),
+    var(--bg-raised);
+  font: 0.75rem var(--font-ui);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.app-prose .expressive-code .frame .header:has(.title:empty) {
+  display: none;
+}
 .app-prose .expressive-code .frame pre {
   background: transparent;
+  border: 0;
+}
+.app-prose .expressive-code .frame .copy {
+  inset-block-start: 0.3rem;
+  inset-inline-end: 0.45rem;
+}
+.app-prose .expressive-code .frame .copy button {
+  opacity: 1;
+  width: auto;
+  height: 1.9rem;
+  padding-inline: 0.7rem;
+  font: 0.8rem var(--font-ui);
+  color: var(--fg);
+  background: var(--bg);
+}
+.app-prose .expressive-code .frame .copy button::after {
+  content: "Copy";
+  position: static;
+  mask: none;
+  background: none;
+  margin: 0;
+  line-height: inherit;
+}
+html:lang(zh) .app-prose .expressive-code .frame .copy button::after {
+  content: "复制";
 }

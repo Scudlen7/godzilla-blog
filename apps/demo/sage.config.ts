@@ -25,10 +25,6 @@ export default defineSageConfig({
   ],
   posts: { perPage: 8, perIndex: 6 },
   features: {
-    editPost: {
-      enabled: true,
-      url: "https://github.com/Scudlen7/godzilla-blog/edit/main/apps/demo/",
-    },
     showBackButton: false,
     search: "pagefind",
   },
