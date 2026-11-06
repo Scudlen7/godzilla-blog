@@ -7,3 +7,5 @@ title: 关于
 这里有我的学习笔记、踩坑记录和 一些好玩的技术实验。如果某篇文章恰好帮到了你,那真是鄙人的荣幸; 如果发现哪里写错了,欢迎在评论区指正。
 
 [GitHub 主页](https://github.com/Scudlen7) · [博客源码](https://github.com/Scudlen7/godzilla-blog)
+
+[2744363348@qq.com](mailto:2744363348@qq.com)
