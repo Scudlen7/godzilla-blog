@@ -1,4 +1,5 @@
 ---
+import { stripBase, stripLocale } from "@sage/utils/withBase";
 import config from "@sage/config";
 
 // Only the embed settings reach the page; the widget loads on scroll.
@@ -9,17 +10,35 @@ const cfg = config.comments.provider ? config.comments : undefined;
   <section
     id="comments"
     class="comments"
-    data-comments={JSON.stringify(cfg)}
+    data-comments={JSON.stringify(
+      cfg.provider === "utterances" && !cfg.issueTerm
+        ? {
+            ...cfg,
+            issueTerm: stripLocale(
+              stripBase(Astro.url.pathname),
+              Astro.currentLocale ?? config.site.lang
+            ).replace(/\/+$/, ""),
+          }
+        : cfg
+    )}
     aria-labelledby="comments-heading"
   >
     <h2 id="comments-heading" class="comments-heading">
-      Comments
+      {Astro.currentLocale === "zh-cn" ? "评论" : "Comments"}
     </h2>
     <div class="comments-root" aria-live="polite">
-      <p class="comments-muted">Loading comments…</p>
+      <p class="comments-muted">
+        {Astro.currentLocale === "zh-cn"
+          ? "正在加载评论…"
+          : "Loading comments…"}
+      </p>
     </div>
     <noscript>
-      <p class="comments-muted">Comments need JavaScript.</p>
+      <p class="comments-muted">
+        {Astro.currentLocale === "zh-cn"
+          ? "请启用 JavaScript 查看评论。"
+          : "Comments need JavaScript."}
+      </p>
     </noscript>
   </section>
 )}

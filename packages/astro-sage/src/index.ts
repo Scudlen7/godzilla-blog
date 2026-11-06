@@ -269,7 +269,7 @@ export default function astroSage(config: SageConfig): AstroIntegration {
         updateConfig({
           site: astroConfig.site ?? config.site.url,
           i18n: {
-            locales: [config.site.lang ?? "en"],
+            locales: [...new Set([config.site.lang ?? "en", "en"])],
             defaultLocale: config.site.lang ?? "en",
             routing: {
               prefixDefaultLocale: false,
@@ -420,7 +420,14 @@ export default function astroSage(config: SageConfig): AstroIntegration {
         });
 
         for (const [pattern, entry] of ROUTES) {
-          injectRoute({ pattern, entrypoint: join(srcDir, entry) });
+          const entrypoint = join(srcDir, entry);
+          injectRoute({ pattern, entrypoint });
+          if (config.site.lang === "zh-cn" && entry.endsWith(".astro")) {
+            injectRoute({
+              pattern: pattern === "/" ? "/en" : "/en" + pattern,
+              entrypoint,
+            });
+          }
         }
       },
     },

@@ -41,7 +41,11 @@ const t = useTranslations(locale);
 
   <Main
     pageTitle={`${t.pages.tagTitle}: ${tagName}`}
-    pageDesc={`${page.total} ${page.total === 1 ? "post" : "posts"} tagged "${tagName}".`}
+    pageDesc={
+      locale === "zh-cn"
+        ? `标签“${tagName}”下共有 ${page.total} 篇文章。`
+        : `${page.total} ${page.total === 1 ? "post" : "posts"} tagged "${tagName}".`
+    }
   >
     <ul>
       {page.data.map(data => (

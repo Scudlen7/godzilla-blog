@@ -6,7 +6,12 @@ import Main from "@sage/components/Main.astro";
 import Footer from "@sage/components/Footer.astro";
 import config from "@sage/config";
 
-const about = await getEntry("pages", "about");
+const about = await getEntry(
+  "pages",
+  Astro.currentLocale === "en" && config.site.lang === "zh-cn"
+    ? "about-en"
+    : "about"
+);
 
 if (!about) {
   throw new Error(

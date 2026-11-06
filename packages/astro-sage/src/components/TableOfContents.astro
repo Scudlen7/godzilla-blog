@@ -19,7 +19,7 @@ const items = headings.filter(h => h.depth >= 2 && h.depth <= 3);
       aria-labelledby="toc-rail-label"
     >
       <p id="toc-rail-label" class="toc-label small-caps">
-        On this page
+        {Astro.currentLocale === "zh-cn" ? "本文目录" : "On this page"}
       </p>
       <ol>
         {items.map(h => (
@@ -33,7 +33,9 @@ const items = headings.filter(h => h.depth >= 2 && h.depth <= 3);
     </nav>
   ) : (
     <details class:list={["toc toc-inline", className]}>
-      <summary class="small-caps">On this page</summary>
+      <summary class="small-caps">
+        {Astro.currentLocale === "zh-cn" ? "本文目录" : "On this page"}
+      </summary>
       <ol>
         {items.map(h => (
           <li data-depth={h.depth}>

@@ -104,7 +104,7 @@ if (typeof initOgImage === "string") {
 }
 
 if (!ogImageUrl && config.features.dynamicOgImage) {
-  const postUrl = getPostUrl(post.id, post.filePath, locale).replace(
+  const postUrl = getPostUrl(post.id, post.filePath, config.site.lang).replace(
     /\/+$/,
     ""
   );
@@ -148,7 +148,11 @@ const ogImage = ogImageUrl
         <div class="post-meta">
           <Datetime {pubDatetime} {modDatetime} {timezone} />
           <span aria-hidden="true">·</span>
-          <span>{minutes} min read</span>
+          <span>
+            {locale === "zh-cn"
+              ? "阅读约 " + minutes + " 分钟"
+              : minutes + " min read"}
+          </span>
         </div>
         {tags.length > 0 && (
           <ul class="post-tags" aria-label="Tags" data-pagefind-ignore>

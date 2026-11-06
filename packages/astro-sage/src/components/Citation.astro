@@ -58,21 +58,25 @@ const bibtex = `@article{${key},
 ---
 
 <details class="citation" data-pagefind-ignore>
-  <summary class="citation-heading small-caps">Cite this post</summary>
+  <summary class="citation-heading small-caps">
+    {Astro.currentLocale === "zh-cn" ? "引用本文" : "Cite this post"}
+  </summary>
   <div class="citation-body">
     <p class="citation-lede">
-      If you found this useful, please cite this write-up as:
+      {Astro.currentLocale === "zh-cn"
+        ? "引用本文时，可使用以下格式："
+        : "If you found this useful, please cite this write-up as:"}
     </p>
     <blockquote class="citation-text">
       {citeName}. ({month} {year}). <cite>{title}</cite>. {publication}.{" "}
       <a href={url}>{url}</a>
     </blockquote>
-    <p class="citation-lede">or</p>
+    <p class="citation-lede">{Astro.currentLocale === "zh-cn" ? "或" : "or"}</p>
     <figure class="citation-bib">
       <figcaption>
         <span>BibTeX</span>
         <button type="button" class="citation-copy" data-copy-bib>
-          Copy
+          {Astro.currentLocale === "zh-cn" ? "复制" : "Copy"}
         </button>
       </figcaption>
       <pre tabindex="0"><code>{bibtex}</code></pre>
@@ -179,11 +183,20 @@ const bibtex = `@article{${key},
         btn.closest(".citation-bib")!.querySelector("code")!.textContent ?? "";
       try {
         await navigator.clipboard.writeText(code);
-        btn.textContent = "Copied";
+        btn.textContent =
+          document.documentElement.lang === "zh-cn" ? "已复制" : "Copied";
       } catch {
-        btn.textContent = "Select & copy";
+        btn.textContent =
+          document.documentElement.lang === "zh-cn"
+            ? "请选择并复制"
+            : "Select & copy";
       }
-      setTimeout(() => (btn.textContent = "Copy"), 1500);
+      setTimeout(
+        () =>
+          (btn.textContent =
+            document.documentElement.lang === "zh-cn" ? "复制" : "Copy"),
+        1500
+      );
     });
   }
 </script>

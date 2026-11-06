@@ -31,8 +31,13 @@ const t = useTranslations(locale);
               {s.name}
             </h2>
             <p class="text-muted-foreground mt-1">
-              {s.posts.length} {s.posts.length === 1 ? "part" : "parts"} ·
-              started {s.posts[0].data.pubDatetime.getFullYear()}
+              {s.posts.length}{" "}
+              {locale === "zh-cn"
+                ? "篇 · 始于"
+                : s.posts.length === 1
+                  ? "part · started"
+                  : "parts · started"}{" "}
+              {s.posts[0].data.pubDatetime.getFullYear()}
             </p>
           </a>
         </li>

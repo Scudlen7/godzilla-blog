@@ -25,7 +25,11 @@ const { name, posts } = Astro.props;
   <Header />
   <Main
     pageTitle={name}
-    pageDesc={`A series in ${posts.length} parts, in reading order.`}
+    pageDesc={
+      Astro.currentLocale === "zh-cn"
+        ? `共 ${posts.length} 篇，按阅读顺序排列。`
+        : `A series in ${posts.length} parts, in reading order.`
+    }
   >
     <ol class="series-list">
       {posts.map(p => (
@@ -37,6 +41,9 @@ const { name, posts } = Astro.props;
 </Layout>
 
 <style>
+  :global(html[lang="zh-cn"]) .series-list :global(.post-card)::before {
+    content: "第 " counter(part) " 篇";
+  }
   .series-list {
     counter-reset: part;
   }

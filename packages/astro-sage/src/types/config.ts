@@ -117,6 +117,7 @@ interface HomeConfig {
   title?: string;
   /** Intro paragraph (plain text or inline HTML) on the home page. */
   intro?: string;
+  introEn?: string;
 }
 
 /** Light and dark theme names (or theme CSS URLs) for an embedded widget. */

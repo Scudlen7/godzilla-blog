@@ -2,45 +2,34 @@ import { defineSageConfig } from "astro-sage";
 
 export default defineSageConfig({
   site: {
-    url: "https://astro-sage.chintak.sh/",
-    title: "AstroSage",
-    description:
-      "A readability-first Astro blog theme: serif type, warm paper, and a pinned table of contents.",
-    author: "Ada Lovelace",
-    profile: "https://example.com",
-    ogImage: "default-og.jpg",
-    lang: "en",
-    timezone: "UTC",
-    dir: "ltr",
+    url: process.env.PAGES_URL ?? "http://localhost:4321/",
+    title: "哥斯拉笔记",
+    description: "一名热爱开源的前端开发工程师，喜欢折腾各种新技术...",
+    author: "Scudlen",
+    profile: "https://github.com/Scudlen7",
+    lang: "zh-cn",
+    timezone: "Asia/Shanghai",
   },
   home: {
-    title: "AstroSage",
-    intro:
-      "A quiet, warm theme for long-form technical writing. Serif type set for reading, math and code that look like they belong, and a table of contents that keeps its place.",
+    intro: "一名热爱开源的前端开发工程师，喜欢折腾各种新技术...",
+    introEn:
+      "A frontend developer who loves open source and enjoys experimenting with new technologies...",
   },
-  // GitHub-backed comments; works on any static host. Needs the utterances
-  // app installed on the repo: https://github.com/apps/utterances
-  comments: {
-    provider: "utterances",
-    repo: "chintak/astro-sage",
-    label: "comments",
-  },
-  posts: { perPage: 8, perIndex: 6, scheduledPostMargin: 15 * 60 * 1000 },
+  comments: { provider: "utterances", repo: "Scudlen7/godzilla-blog" },
+  socials: [
+    {
+      name: "github",
+      url: "https://github.com/Scudlen7",
+      linkTitle: "Scudlen · GitHub",
+    },
+  ],
+  posts: { perPage: 8, perIndex: 6 },
   features: {
-    lightAndDarkMode: true,
-    dynamicOgImage: true,
-    showArchives: true,
-    showBackButton: false,
     editPost: {
       enabled: true,
-      url: "https://github.com/chintak/astro-sage/edit/main/apps/demo/",
+      url: "https://github.com/Scudlen7/godzilla-blog/edit/main/apps/demo/",
     },
+    showBackButton: false,
     search: "pagefind",
   },
-  socials: [
-    // Sample links: point these at your own profiles.
-    { name: "github", url: "https://github.com" },
-    { name: "x", url: "https://x.com" },
-  ],
-  // shareLinks: defaults to X, LinkedIn, Bluesky, Reddit, Hacker News and email.
 });

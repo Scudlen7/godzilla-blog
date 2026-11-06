@@ -9,6 +9,7 @@ type Props = {
 };
 
 const { title } = Astro.props;
+const zh = Astro.currentLocale === "zh-cn";
 const { shareLinks } = config;
 
 // Share the canonical URL (the site URL), never the dev/build host.
@@ -44,7 +45,13 @@ const items = await Promise.all(
       href: shareHref(url),
       label:
         linkTitle ??
-        (name === "mail" ? "Share via email" : `Share on ${platform}`),
+        (zh
+          ? name === "mail"
+            ? "通过邮件分享"
+            : `分享到 ${platform}`
+          : name === "mail"
+            ? "Share via email"
+            : `Share on ${platform}`),
       Icon: mod?.default,
       external: !url.startsWith("mailto:"),
     };
@@ -53,7 +60,9 @@ const items = await Promise.all(
 ---
 
 <div class="share" data-share-url={pageUrl} data-share-title={title}>
-  <span class="share-label small-caps">Share</span>
+  <span class="share-label small-caps">
+    {Astro.currentLocale === "zh-cn" ? "分享" : "Share"}
+  </span>
   <ul class="share-list">
     {items.map(({ href, label, Icon, external }) =>
       Icon ? (
@@ -77,8 +86,8 @@ const items = await Promise.all(
         type="button"
         class="share-btn"
         data-copy
-        title="Copy link"
-        aria-label="Copy link"
+        title={zh ? "复制链接" : "Copy link"}
+        aria-label={zh ? "复制链接" : "Copy link"}
       >
         <IconLink class="size-[1.15rem]" aria-hidden="true" />
       </button>
@@ -87,8 +96,8 @@ const items = await Promise.all(
       <button
         type="button"
         class="share-btn"
-        title="More options"
-        aria-label="Share via…"
+        title={zh ? "更多选项" : "More options"}
+        aria-label={zh ? "更多分享方式…" : "Share via…"}
       >
         <IconShare class="size-[1.15rem]" aria-hidden="true" />
       </button>
@@ -147,7 +156,10 @@ const items = await Promise.all(
     el.querySelector("[data-copy]")?.addEventListener("click", async () => {
       try {
         await navigator.clipboard.writeText(url);
-        status.textContent = "Link copied";
+        status.textContent =
+          document.documentElement.lang === "zh-cn"
+            ? "链接已复制"
+            : "Link copied";
       } catch {
         status.textContent = url;
       }

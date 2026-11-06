@@ -2,6 +2,7 @@
  * Full-screen diagram viewer: wheel/pinch/button zoom, drag to pan, a
  * "select text" mode, and keyboard control. Loaded only on pages with diagrams.
  */
+const zh = document.documentElement.lang === "zh-cn";
 const MIN = 0.1;
 const MAX = 8;
 
@@ -46,25 +47,32 @@ function actual() {
 function setMode(mode: "pan" | "select") {
   stage.dataset.mode = mode;
   modeBtn.setAttribute("aria-pressed", String(mode === "select"));
-  modeBtn.textContent = mode === "select" ? "Selecting text" : "Select text";
+  modeBtn.textContent =
+    mode === "select"
+      ? zh
+        ? "正在选取文字"
+        : "Selecting text"
+      : zh
+        ? "选取文字"
+        : "Select text";
 }
 
 function build() {
   dialog = document.createElement("dialog");
   dialog.className = "diagram-viewer";
-  dialog.setAttribute("aria-label", "Diagram viewer");
+  dialog.setAttribute("aria-label", zh ? "图表查看器" : "Diagram viewer");
   dialog.innerHTML = `
-    <div class="dv-bar" role="toolbar" aria-label="Diagram controls">
-      <button type="button" data-act="out" aria-label="Zoom out">−</button>
+    <div class="dv-bar" role="toolbar" aria-label="${zh ? "图表工具" : "Diagram controls"}">
+      <button type="button" data-act="out" aria-label="${zh ? "缩小" : "Zoom out"}">−</button>
       <output aria-live="polite">100%</output>
-      <button type="button" data-act="in" aria-label="Zoom in">+</button>
-      <button type="button" data-act="fit">Fit</button>
+      <button type="button" data-act="in" aria-label="${zh ? "放大" : "Zoom in"}">+</button>
+      <button type="button" data-act="fit">${zh ? "适应窗口" : "Fit"}</button>
       <button type="button" data-act="actual">1:1</button>
-      <button type="button" data-act="mode" aria-pressed="false">Select text</button>
-      <button type="button" data-act="close" aria-label="Close viewer">✕</button>
+      <button type="button" data-act="mode" aria-pressed="false">${zh ? "选取文字" : "Select text"}</button>
+      <button type="button" data-act="close" aria-label="${zh ? "关闭" : "Close viewer"}">✕</button>
     </div>
     <div class="dv-stage" data-mode="pan"><div class="dv-content"></div></div>
-    <p class="dv-hint">Scroll or pinch to zoom · drag to pan · 0 fit · 1 actual size · Esc close</p>`;
+    <p class="dv-hint">${zh ? "滚动或双指缩放 · 拖动平移 · 0 适应窗口 · 1 原始大小 · Esc 关闭" : "Scroll or pinch to zoom · drag to pan · 0 fit · 1 actual size · Esc close"}</p>`;
   document.body.append(dialog);
   stage = dialog.querySelector(".dv-stage")!;
   content = dialog.querySelector(".dv-content")!;

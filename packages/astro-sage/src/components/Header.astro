@@ -53,7 +53,10 @@ const links = [
       {site.title}
     </a>
 
-    <nav aria-label="Main" class="flex items-center gap-1 sm:gap-2">
+    <nav
+      aria-label={locale === "zh-cn" ? "主导航" : "Main"}
+      class="flex items-center gap-1 sm:gap-2"
+    >
       <ul class="hidden items-center gap-5 md:flex">
         {links.map(l => (
           <li>
@@ -84,7 +87,7 @@ const links = [
           id="theme-btn"
           class="icon-btn"
           title={t.a11y.toggleTheme}
-          aria-label="auto"
+          aria-label={t.a11y.toggleTheme}
           aria-live="polite"
         >
           <IconMoon class="size-5 dark:hidden" />
@@ -92,6 +95,17 @@ const links = [
         </button>
       )}
 
+      {site.lang === "zh-cn" && (
+        <a
+          data-language-switch
+          href={getRelativeLocaleUrl(
+            locale === "en" ? "zh-cn" : "en",
+            currentPath.slice(1)
+          )}
+        >
+          {locale === "en" ? "简体中文" : "English"}
+        </a>
+      )}
       <slot name="actions" />
 
       <details class="mobile-menu md:hidden">
@@ -114,6 +128,17 @@ const links = [
     </nav>
   </div>
 </header>
+
+<script is:inline>
+  document
+    .querySelector("[data-language-switch]")
+    ?.addEventListener("click", function () {
+      const target = new URL(this.href);
+      target.search = location.search;
+      target.hash = location.hash;
+      this.href = target.href;
+    });
+</script>
 
 <style>
   .site-title {

@@ -63,20 +63,21 @@ const svg = (p: string) =>
 
 export function init(ctx: Ctx) {
   const bar = document.createElement("div");
+  const zh = document.documentElement.lang === "zh-cn";
   bar.className = "quote-share";
   bar.setAttribute("role", "toolbar");
-  bar.setAttribute("aria-label", "Share selected text");
+  bar.setAttribute("aria-label", zh ? "分享选中的文字" : "Share selected text");
   bar.hidden = true;
   const native = typeof navigator.share === "function";
   bar.innerHTML = `
-    <span class="qs-label">Share quote</span>
-    <a data-t="x" target="_blank" rel="noopener noreferrer" aria-label="Share quote on X">${svg(ICON.x)}</a>
-    <a data-t="bluesky" target="_blank" rel="noopener noreferrer" aria-label="Share quote on Bluesky">${svg(ICON.bluesky)}</a>
-    <a data-t="linkedin" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">${svg(ICON.linkedin)}</a>
-    <a data-t="mail" aria-label="Share quote via email">${svg(ICON.mail)}</a>
-    <button type="button" data-t="copy" aria-label="Copy quote with link">${svg(ICON.copy)}</button>
-    <button type="button" data-t="image" aria-label="Share quote as image">${svg(ICON.image)}</button>
-    ${native ? `<button type="button" data-t="native" aria-label="Share via…">${svg(ICON.share)}</button>` : ""}
+    <span class="qs-label">${zh ? "分享选段" : "Share quote"}</span>
+    <a data-t="x" target="_blank" rel="noopener noreferrer" aria-label="${zh ? "分享到 X" : "Share quote on X"}">${svg(ICON.x)}</a>
+    <a data-t="bluesky" target="_blank" rel="noopener noreferrer" aria-label="${zh ? "分享到 Bluesky" : "Share quote on Bluesky"}">${svg(ICON.bluesky)}</a>
+    <a data-t="linkedin" target="_blank" rel="noopener noreferrer" aria-label="${zh ? "分享到 LinkedIn" : "Share on LinkedIn"}">${svg(ICON.linkedin)}</a>
+    <a data-t="mail" aria-label="${zh ? "通过邮件分享" : "Share quote via email"}">${svg(ICON.mail)}</a>
+    <button type="button" data-t="copy" aria-label="${zh ? "复制选段和链接" : "Copy quote with link"}">${svg(ICON.copy)}</button>
+    <button type="button" data-t="image" aria-label="${zh ? "分享为图片" : "Share quote as image"}">${svg(ICON.image)}</button>
+    ${native ? `<button type="button" data-t="native" aria-label="${zh ? "更多分享方式…" : "Share via…"}">${svg(ICON.share)}</button>` : ""}
     <span class="qs-status" role="status" aria-live="polite"></span>`;
   document.body.append(bar);
   const status = bar.querySelector<HTMLElement>(".qs-status")!;
@@ -133,9 +134,9 @@ export function init(ctx: Ctx) {
     if (b.dataset.t === "copy") {
       try {
         await navigator.clipboard.writeText(`${current.text}\n${current.link}`);
-        status.textContent = "Copied";
+        status.textContent = zh ? "已复制" : "Copied";
       } catch {
-        status.textContent = "Copy failed";
+        status.textContent = zh ? "复制失败" : "Copy failed";
       }
     } else if (b.dataset.t === "image") {
       status.textContent = "Rendering…";
@@ -163,7 +164,7 @@ export function init(ctx: Ctx) {
         a.download = "quote.png";
         a.click();
         setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-        status.textContent = "Image saved";
+        status.textContent = zh ? "已保存图片" : "Image saved";
       }
     } else if (b.dataset.t === "native") {
       navigator

@@ -63,7 +63,7 @@ const t = useTranslations(locale);
       if (import.meta.env.DEV) {
         pageFindSearch.innerHTML = `
             <div class="bg-muted/75 rounded p-4 space-y-4 mb-4">
-              <p><strong>DEV mode Warning! </strong>You need to build the project at least once to see the search results during development.</p>
+              <p>${document.documentElement.lang === "zh-cn" ? "开发预览：请先构建一次网站以生成搜索索引。" : "Build the site once to generate the search index."}</p>
               <code class="block bg-black text-white px-2 py-1 rounded">pnpm run build</code>
             </div>
           `;

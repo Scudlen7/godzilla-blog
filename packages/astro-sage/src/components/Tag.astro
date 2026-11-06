@@ -38,7 +38,8 @@ const locale = Astro.currentLocale ?? config.site.lang;
     <span class="tag-count">
       <span aria-hidden="true">{count}</span>
       <span class="sr-only">
-        ({count} {count === 1 ? "post" : "posts"})
+        ({count}{" "}
+        {locale === "zh-cn" ? "篇文章" : count === 1 ? "post" : "posts"})
       </span>
     </span>
   </a>
