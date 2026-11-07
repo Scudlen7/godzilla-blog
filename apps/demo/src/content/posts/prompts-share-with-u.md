@@ -27,8 +27,6 @@ tags: ["AI", "提示词", "学习方法", "思维方法"]
 
 底层本质上，我非常推荐大家去读一下非常经典的一本书，在美团内部也被列为四大名著之一，就是尼尔·布朗的《学会提问》。
 
-![Amazon.co.jp: 学会提问 : ［美］尼尔·布朗(NeilBrowne).斯图尔特·基利(StuartKeeley): 本](https://mmbiz.qpic.cn/mmbiz_jpg/2jjfQoZLoqURj9VvYSxohyK2ydhI7ko3QkiaprM00DnIiaZX0hTSiclWM2vflAicibaTKnibuOediaDSXoAFpCrwalo8TWOhrnv7HfyHXBdXzvfkx0/640?wx_fmt=jpeg#imgIndex=0)
-
 当然，也有一些Skill，比如著名的grill me之类的，不过本质上其实都是互通的，就是怎么让你更加精确的进行提问。
 
 不过我不怎么喜欢在聊天的时候用Skill，有一些Prompt也会一直拷打我无限追问导致我很烦，所以有一个苏格拉底提问法是我最常用的。
